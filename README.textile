@@ -1,1 +1,1 @@
-"View the Prototype Accordion demo":/http://homepage.mac.com/mattgarrett/prototype-accordion/
+"View the Prototype Accordion demo":http://homepage.mac.com/mattgarrett/prototype-accordion/
