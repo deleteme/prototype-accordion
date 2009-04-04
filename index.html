@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+  <title>Accordion Demo</title>
+  
+  <link rel="stylesheet" href="stylesheets/accordion.css" type="text/css" media="screen" />
+  
+  <script src="javascripts/prototype.js" type="text/javascript"></script>
+  <script src="javascripts/effects.js" type="text/javascript"></script>
+  <script src="javascripts/accordion.js" type="text/javascript"></script>
+  
+  <script type="text/javascript">
+    
+    
+    function constructAccordionMarkup () {
+      var sectionMarkupTemplate = new Template([
+        '<li class="section">',
+          '<a href="##{i}" class="title"><span>#{i}</span></a>',
+          '<div class="toggle" style="display: none;"><div>',
+            '<p>ONE Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>',
+          '</div></div>',
+        '</li>'
+      ].join(''));
+      var a = [];
+      for (var i=0; i < 100; i++) {
+        a.push(sectionMarkupTemplate.evaluate({i:i}));
+      };
+      $('accordion').update(a.join(''));
+    }
+    function logCustomEvent (e) {
+      // console.log(e.memo);
+    }
+    
+    // document.observe('dom:loaded', constructAccordionMarkup);
+    
+    var initAccordion = function(){
+      var accordion = new Accordion('accordion');
+    };
+    Event.observe(window, 'load', initAccordion);
+  </script>
+  
+</head>
+
+<body>
+  
+  <ul id="accordion">
+    <li class="section">
+      <a href="#one" class="title"><span>First Section</span></a>
+      <div class="toggle">
+        <p>ONE Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+    </li>
+    <li class="section">
+      <a href="#two" class="title"><span>Second Section</span></a>
+      <div class="toggle">
+        <p>TWO Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+    </li>
+    <li class="section">
+      <a href="#three" class="title"><span>Third Section</span></a>
+      <div class="toggle">
+        <p>THREE Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+    </li>
+  </ul>
+  
+</body>
+</html>

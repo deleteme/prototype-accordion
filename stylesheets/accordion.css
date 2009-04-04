@@ -1,0 +1,46 @@
+body {
+  font-family: sans-serif;
+  width: 300px;
+}
+
+#accordion {
+  border: 2px solid #ccc;
+  margin: 0;
+  padding: 0;
+}
+  
+  #accordion li.section {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #accordion li a.title {
+    background: #f2f2f2;
+    border-top: 2px solid #ccc;
+    color: #000;
+    display: block;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    text-decoration: none;
+  }
+  
+  #accordion li:first-child a.title {
+    border-top: 0;
+  }
+  
+    #accordion li a.title:hover {
+      background: #ccc;
+    }
+  
+  #accordion li div.toggle {
+    border-top: 2px solid #ccc;
+    padding: 0 10px;
+  }
+  
+  #accordion li.section.expanded a.title {
+    background: #ccc;
+  }
+  
