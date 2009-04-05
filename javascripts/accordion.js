@@ -75,12 +75,19 @@ var Accordion = Class.create({
     }
   },
   
+  tweakComingSectionHeight: function(comingSection){
+    comingSection.elements.toggle.setStyle({ height: 'auto' }).setStyle({
+      height: comingSection.elements.toggle.getHeight() + 'px'
+    });
+  },
+  
   showAnotherSection: function(comingSection, goingSection){
     new Effect.Parallel([
       new Effect.BlindDown(comingSection.elements.toggle, { sync: true }),
       new Effect.BlindUp(goingSection.elements.toggle, { sync: true })
     ],
     this.accordionEffectOptions.merge({
+      beforeStart: this.tweakComingSectionHeight.curry(comingSection),
       afterFinish: function(){
         goingSection.setHidden();
         comingSection.setVisible();
@@ -99,6 +106,7 @@ var Accordion = Class.create({
   showSection: function(comingSection){
     comingSection.elements.toggle.blindDown(
       this.accordionEffectOptions.merge({
+        beforeStart: this.tweakComingSectionHeight.curry(comingSection),
         afterFinish: comingSection.setVisible.bind(comingSection)
       }).toObject()
     );
