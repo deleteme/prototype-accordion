@@ -39,7 +39,7 @@ h4. Options: classNames
 
 h2. Custom Events
 
-The main Accordion class fires custom events that you can hook into.
+An instance of the main Accordion class fires custom events that you can hook into. The *id* is the id of the root accordion element that is passed to the Accordion class as the first argument.
 
 |_.Accordion Custom Event Name|_.Description|_.Event Memo|
 |id + ':initialized'|Fired when the class initializes.|Contains a reference to the accordion instance.|
