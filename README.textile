@@ -26,7 +26,7 @@ h2. Options
 |cancelEvent|true|When the title element is clicked, if this option is set to true, will cancel the event, therefore preventing the anchor to load a new page or modify the address bar.|
 |classNames|{ section: 'section', title: 'title', toggle: 'toggle', expanded: 'expanded' }|Allows you to use custom class names to describe the elements used.|
 |mutuallyExclusive|true|If this is set to false, multiple sections can be visible at the same time.|
-|effectDuration|.3|The duration of the underlying BlindUp/BlindDown Scriptaculous effects.|
+|effectDuration| .3|The duration of the underlying BlindUp/BlindDown Scriptaculous effects.|
 
 h2. Custom Events
 
