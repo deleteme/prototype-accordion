@@ -143,6 +143,7 @@ var AccordionSection = Class.create({
   
   setVisible: function(){
     this.elements.section.addClassName(this.classNames.expanded);
+    this.elements.toggle.setStyle({ height: 'auto' });
     this.visible = true;
     this.accordion.activeSection = this;
     this.fireEvent('shown');
