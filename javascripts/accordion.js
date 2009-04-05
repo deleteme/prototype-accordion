@@ -53,8 +53,6 @@ var Accordion = Class.create({
     
     if (el.match('.' + this.options.classNames.title)) {
       
-      this.fireEvent('clicked');
-      
       var comingSection = this.sections.find(function(section){
         return !section.visible && section.elements.title == el;
       });
@@ -70,16 +68,19 @@ var Accordion = Class.create({
         this.showSection(comingSection);
       }
       
+      this.fireEvent('clicked', { comingSection: comingSection, goingSection: goingSection });
+      
+      
       if (this.options.cancelEvent) e.stop();
       el.blur();
     }
   },
   
-  tweakComingSectionHeight: function(comingSection){
-    comingSection.elements.toggle.setStyle({ height: 'auto' }).setStyle({
-      height: comingSection.elements.toggle.getHeight() + 'px'
-    });
-  },
+  // tweakComingSectionHeight: function(comingSection){
+  //   comingSection.elements.toggle.setStyle({ height: 'auto' }).setStyle({
+  //     height: comingSection.elements.toggle.getHeight() + 'px'
+  //   });
+  // },
   
   showAnotherSection: function(comingSection, goingSection){
     new Effect.Parallel([
@@ -87,7 +88,7 @@ var Accordion = Class.create({
       new Effect.BlindUp(goingSection.elements.toggle, { sync: true })
     ],
     this.accordionEffectOptions.merge({
-      beforeStart: this.tweakComingSectionHeight.curry(comingSection),
+      // beforeStart: this.tweakComingSectionHeight.curry(comingSection),
       afterFinish: function(){
         goingSection.setHidden();
         comingSection.setVisible();
@@ -106,14 +107,14 @@ var Accordion = Class.create({
   showSection: function(comingSection){
     comingSection.elements.toggle.blindDown(
       this.accordionEffectOptions.merge({
-        beforeStart: this.tweakComingSectionHeight.curry(comingSection),
+        // beforeStart: this.tweakComingSectionHeight.curry(comingSection),
         afterFinish: comingSection.setVisible.bind(comingSection)
       }).toObject()
     );
   },
   
-  fireEvent: function(state){
-    document.fire(this.id + ':' + state, { accordion: this });
+  fireEvent: function(state, memo){
+    document.fire(this.id + ':' + state, Object.extend({ accordion: this }, memo || {}));
   }
   
 });
