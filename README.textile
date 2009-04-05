@@ -36,7 +36,6 @@ h4. Options: classNames
 |toggle|String|'toggle'|A CSS class on the element that is to be shown or hidden when the title element is clicked.|
 |expanded|String|'expanded'|A CSS class that is on the section element when the section is expanded.|
 
-
 h2. Custom Events
 
 An instance of the main Accordion class fires custom events that you can hook into. The *id* is the id of the root accordion element that is passed to the Accordion class as the first argument.
@@ -50,6 +49,4 @@ The AccordionSection class also fires custom events that you can hook into.
 |_.AccordionSection Custom Event Name|_.Description|_.Event Memo|
 |id + ':hidden'|Fired when a section is hidden.|Contains a reference to the accordion instance and the related section. Occurs at the end of the effect duration.|
 |id + ':shown'|Fired when a section is shown.|Contains a reference to the accordion instance and the related section. Occurs at the end of the effect duration.|
-
-
 
