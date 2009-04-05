@@ -39,8 +39,8 @@ The main Accordion class fires custom events that you can hook into.
 The AccordionSection class also fires custom events that you can hook into.
 
 |_.AccordionSection Custom Event Name|_.Description|_.Event Memo|
-|id + ':hidden'|Fired when the section is hidden.|Contains a reference to the accordion instance and the related section.|
-|id + ':shown'|Fired when the section is shown.|Contains a reference to the accordion instance and the related section.|
+|id + ':hidden'|Fired when a section is hidden.|Contains a reference to the accordion instance and the related section. Occurs at the end of the effect duration.|
+|id + ':shown'|Fired when a section is shown.|Contains a reference to the accordion instance and the related section. Occurs at the end of the effect duration.|
 
 
 
