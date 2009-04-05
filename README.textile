@@ -24,7 +24,12 @@ h2. Options
 
 |_.Option|_.Default Value|_.Description|
 |cancelEvent|true|When the title element is clicked, if this option is set to true, will cancel the event, therefore preventing the anchor to load a new page or modify the address bar.|
-|classNames|{ section: 'section', title: 'title', toggle: 'toggle', expanded: 'expanded' }|Allows you to use custom class names to describe the elements used.|
+|classNames|{ section: 'section', title: 'title', toggle: 'toggle', expanded: 'expanded' }|Allows you to use custom CSS class names to describe the elements used.
+
+* *section:* a CSS class on the element that contains the title and the toggle element.
+* *title:* a CSS class on the element that is clicked to show or hide sections.
+* *toggle:* a CSS class on the element that is to be shown or hidden when the title element is clicked.
+* *expanded:* a CSS class that is on the section element when the section is expanded.|
 |mutuallyExclusive|true|If this is set to false, multiple sections can be visible at the same time.|
 |effectDuration| .3|The duration of the underlying BlindUp/BlindDown Scriptaculous effects.|
 
