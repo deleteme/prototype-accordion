@@ -72,7 +72,6 @@ var Accordion = Class.create({
         else {
           for (var i = this.sections.length - 1; i >= 0; i--){
             if (this.sections[i].elements.title == el) goingSection = this.sections[i];
-            console.log(goingSection);
           };
           this.hideSection(goingSection)
         }
