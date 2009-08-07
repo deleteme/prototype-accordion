@@ -65,6 +65,7 @@ var Accordion = Class.create({
         return section.visible;
       });
       
+      // this needs to be reworked
       if (comingSection && goingSection && this.options.mutuallyExclusive){
         this.showAnotherSection(comingSection, goingSection);
       } else {
