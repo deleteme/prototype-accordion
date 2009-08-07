@@ -55,6 +55,9 @@ var Accordion = Class.create({
       
       this.fireEvent('clicked');
       
+      if (this.options.cancelEvent) e.stop();
+      el.blur();
+
       var comingSection = this.sections.find(function(section){
         return !section.visible && section.elements.title == el;
       });
@@ -64,14 +67,16 @@ var Accordion = Class.create({
       
       if (comingSection && goingSection && this.options.mutuallyExclusive){
         this.showAnotherSection(comingSection, goingSection);
-      } else if (goingSection){
-        this.hideSection(goingSection);
-      } else if (comingSection) {
-        this.showSection(comingSection);
-      }
-      
-      if (this.options.cancelEvent) e.stop();
-      el.blur();
+      } else {
+        if (comingSection) this.showSection(comingSection);
+        else {
+          for (var i = this.sections.length - 1; i >= 0; i--){
+            if (this.sections[i].elements.title == el) goingSection = this.sections[i];
+            console.log(goingSection);
+          };
+          this.hideSection(goingSection)
+        }
+      } 
     }
   },
   

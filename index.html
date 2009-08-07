@@ -16,6 +16,10 @@
   <script type="text/javascript">
     document.observe('dom:loaded', function(){
       var accordion = new Accordion('accordion');
+      var accordion = new Accordion('accordion-not-mutually-exclusive', {
+        mutuallyExclusive: false
+      });
+      
     });
   </script>
   
@@ -27,7 +31,32 @@
   
   <h1>Prototype Accordion Demo</h1>
   
+  <h2>Show one at a time</h2>
+  
   <ul id="accordion">
+    <li class="section">
+      <a href="#one" class="title"><span>First Section</span></a>
+      <div class="toggle">
+        <p>ONE Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+    </li>
+    <li class="section">
+      <a href="#two" class="title"><span>Second Section</span></a>
+      <div class="toggle">
+        <p>TWO Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+    </li>
+    <li class="section">
+      <a href="#three" class="title"><span>Third Section</span></a>
+      <div class="toggle">
+        <p>THREE Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+    </li>
+  </ul>
+  
+  <h2>Show more than one at a time</h2>
+  
+  <ul id="accordion-not-mutually-exclusive">
     <li class="section">
       <a href="#one" class="title"><span>First Section</span></a>
       <div class="toggle">
