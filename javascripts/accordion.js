@@ -53,6 +53,11 @@ var Accordion = Class.create({
     
     if (el.match('.' + this.options.classNames.title)) {
       
+      this.fireEvent('clicked');
+      
+      if (this.options.cancelEvent) e.stop();
+      el.blur();
+
       var comingSection = this.sections.find(function(section){
         return !section.visible && section.elements.title == el;
       });
@@ -62,25 +67,17 @@ var Accordion = Class.create({
       
       if (comingSection && goingSection && this.options.mutuallyExclusive){
         this.showAnotherSection(comingSection, goingSection);
-      } else if (goingSection){
-        this.hideSection(goingSection);
-      } else if (comingSection) {
-        this.showSection(comingSection);
-      }
-      
-      this.fireEvent('clicked', { comingSection: comingSection, goingSection: goingSection });
-      
-      
-      if (this.options.cancelEvent) e.stop();
-      el.blur();
+      } else {
+        if (comingSection) this.showSection(comingSection);
+        else {
+          for (var i = this.sections.length - 1; i >= 0; i--){
+            if (this.sections[i].elements.title == el) goingSection = this.sections[i];
+          };
+          this.hideSection(goingSection)
+        }
+      } 
     }
   },
-  
-  // tweakComingSectionHeight: function(comingSection){
-  //   comingSection.elements.toggle.setStyle({ height: 'auto' }).setStyle({
-  //     height: comingSection.elements.toggle.getHeight() + 'px'
-  //   });
-  // },
   
   showAnotherSection: function(comingSection, goingSection){
     new Effect.Parallel([
@@ -88,7 +85,6 @@ var Accordion = Class.create({
       new Effect.BlindUp(goingSection.elements.toggle, { sync: true })
     ],
     this.accordionEffectOptions.merge({
-      // beforeStart: this.tweakComingSectionHeight.curry(comingSection),
       afterFinish: function(){
         goingSection.setHidden();
         comingSection.setVisible();
@@ -107,14 +103,13 @@ var Accordion = Class.create({
   showSection: function(comingSection){
     comingSection.elements.toggle.blindDown(
       this.accordionEffectOptions.merge({
-        // beforeStart: this.tweakComingSectionHeight.curry(comingSection),
         afterFinish: comingSection.setVisible.bind(comingSection)
       }).toObject()
     );
   },
   
-  fireEvent: function(state, memo){
-    document.fire(this.id + ':' + state, Object.extend({ accordion: this }, memo || {}));
+  fireEvent: function(state){
+    document.fire(this.id + ':' + state, { accordion: this });
   }
   
 });
@@ -143,7 +138,6 @@ var AccordionSection = Class.create({
   
   setVisible: function(){
     this.elements.section.addClassName(this.classNames.expanded);
-    this.elements.toggle.setStyle({ height: 'auto' });
     this.visible = true;
     this.accordion.activeSection = this;
     this.fireEvent('shown');
@@ -154,4 +148,3 @@ var AccordionSection = Class.create({
   }
   
 });
-

@@ -3,19 +3,19 @@ body {
   width: 300px;
 }
 
-#accordion {
+ul {
   border: 2px solid #ccc;
   margin: 0;
   padding: 0;
 }
   
-  #accordion li.section {
+  ul li.section {
     list-style: none;
     margin: 0;
     padding: 0;
   }
   
-  #accordion li a.title {
+  ul li a.title {
     background: #f2f2f2;
     border-top: 2px solid #ccc;
     color: #000;
@@ -27,20 +27,20 @@ body {
     text-decoration: none;
   }
   
-  #accordion li:first-child a.title {
+  ul li:first-child a.title {
     border-top: 0;
   }
   
-    #accordion li a.title:hover {
+    ul li a.title:hover {
       background: #ccc;
     }
   
-  #accordion li div.toggle {
+  ul li div.toggle {
     border-top: 2px solid #ccc;
     padding: 0 10px;
   }
   
-  #accordion li.section.expanded a.title {
+  ul li.section.expanded a.title {
     background: #ccc;
   }
   
