@@ -29,7 +29,6 @@ h2. Options
 |effectDuration|Number| .3|The duration of the underlying BlindUp/BlindDown Scriptaculous effects.|
 |disabled|Boolean|false|Controls wether or not an accordion's interactivity is disabled when it is initialized.|
 
-
 h4. Options: classNames
 
 |_.Name|_.Type|_.Default Value|_.Description|
@@ -38,7 +37,12 @@ h4. Options: classNames
 |toggle|String|'toggle'|A CSS class on the element that is to be shown or hidden when the title element is clicked.|
 |expanded|String|'expanded'|A CSS class that is on the section element when the section is expanded.|
 
-When an accordion or it's sections are disabled, a 'disabled' CSS class is applied to the root element or section element.
+h2. Disabling Accordions
+
+The accordion and it's sections have the ability to be disabled using the disable() method. This method is available on the main accordion object and it's section objects.
+
+* If an *entire accordion* is disabled, a CSS class of 'disabled' is applied to the root element.
+* If an *accordion section* is disabled, a CSS class of 'disabled' is applied to the corresponding section element.
 
 h2. Custom Events
 
