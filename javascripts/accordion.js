@@ -22,8 +22,10 @@ var Accordion = Class.create({
       cancelEvent: true,
       classNames: { section: 'section', title: 'title', toggle: 'toggle', expanded: 'expanded' },
       mutuallyExclusive: true,
-      effectDuration: .3
+      effectDuration: .3,
+      disabled: false
     }, options || {});
+    
     this.accordionEffectOptions = $H({
       duration: this.options.effectDuration,
       queue: { position: 'end', limit: 1, scope: id }
@@ -73,7 +75,7 @@ var Accordion = Class.create({
           for (var i = this.sections.length - 1; i >= 0; i--){
             if (this.sections[i].elements.title == el) goingSection = this.sections[i];
           };
-          this.hideSection(goingSection)
+          this.hideSection(goingSection);
         }
       } 
     }
