@@ -15,10 +15,18 @@
   
   <script type="text/javascript">
     document.observe('dom:loaded', function(){
-      var accordion = new Accordion('accordion');
-      var accordion = new Accordion('accordion-not-mutually-exclusive', {
+      
+      accordion = new Accordion('accordion');
+      
+      accordionNotMutuallyExclusive = new Accordion('accordion-not-mutually-exclusive', {
         mutuallyExclusive: false
       });
+      
+      accordionDisableAll = new Accordion('accordion-disable-all', { disabled: true });
+      
+      accordionDisableSection = new Accordion('accordion-disable-section');
+      accordionDisableSection.sections.first().disabled = true;
+      
     });
   </script>
   

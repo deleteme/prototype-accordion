@@ -25,7 +25,7 @@ var Accordion = Class.create({
       effectDuration: .3,
       disabled: false
     }, options || {});
-    
+    this.disabled = this.options.disabled;
     this.accordionEffectOptions = $H({
       duration: this.options.effectDuration,
       queue: { position: 'end', limit: 1, scope: id }
@@ -55,11 +55,14 @@ var Accordion = Class.create({
     
     if (el.match('.' + this.options.classNames.title)) {
       
-      this.fireEvent('clicked');
+      if (!this.disabled) this.fireEvent('clicked');
       
       if (this.options.cancelEvent) e.stop();
+      
       el.blur();
-
+      
+      if (this.disabled) return;
+      
       var comingSection = this.sections.find(function(section){
         return !section.visible && section.elements.title == el;
       });
@@ -82,6 +85,7 @@ var Accordion = Class.create({
   },
   
   showAnotherSection: function(comingSection, goingSection){
+    if (comingSection.disabled || goingSection.disabled) return;
     new Effect.Parallel([
       new Effect.BlindDown(comingSection.elements.toggle, { sync: true }),
       new Effect.BlindUp(goingSection.elements.toggle, { sync: true })
@@ -95,6 +99,7 @@ var Accordion = Class.create({
   },
   
   hideSection: function(goingSection){
+    if (goingSection.disabled) return;
     goingSection.elements.toggle.blindUp(
       this.accordionEffectOptions.merge({
         afterFinish: goingSection.setHidden.bind(goingSection)
@@ -103,6 +108,7 @@ var Accordion = Class.create({
   },
   
   showSection: function(comingSection){
+    if (comingSection.disabled) return;
     comingSection.elements.toggle.blindDown(
       this.accordionEffectOptions.merge({
         afterFinish: comingSection.setVisible.bind(comingSection)
@@ -127,6 +133,7 @@ var AccordionSection = Class.create({
       title:   accordion.elements.titles[i],
       toggle:  accordion.elements.toggles[i]
     };
+    this.disabled = false;
     this.elements.toggle.setStyle({ height: this.elements.toggle.getHeight() + 'px' }).hide();
     this.visible = false;
   },
