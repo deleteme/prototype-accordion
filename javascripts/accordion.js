@@ -16,7 +16,6 @@ var CanFireEvents = Class.create({
   initialize: function(name){
     this.name = name;
   },
-  
   fireEvent: function (state, memo) {
     console.log(this.name + ':' + state, memo);
     document.fire(this.name + ':' + state, memo);
@@ -24,36 +23,32 @@ var CanFireEvents = Class.create({
 });
 
 var CanBeDisabled = Class.create(CanFireEvents, {
-  initialize: function ($super, element, disabled) {
+  initialize: function ($super, name, element, memo, disabled) {
     this.disabled = disabled || false;
     this.elementToBeDisabled = element;
-    $super(this.elementToBeDisabled.identify());
+    $super(name, memo);
     if (this.disabled) this.disable();
   },
-  
   disable: function () {
     this.disabled = true;
     this.elementToBeDisabled.addClassName('disabled');
     this.fireEvent('disabled', { el: this.elementToBeDisabled });
   },
-  
   enable: function() {
     this.disabled = false;
     this.elementToBeDisabled.removeClassName('disabled');
     this.fireEvent('enabled', { el: this.elementToBeDisabled });
   },
-  
   toggleDisabled: function(){
     if (this.disabled) this.enable();
     else this.disable();
   }
 });
 
-/*
 
-var Accordion = Class.create({
-  
-  initialize: function(id, options){
+
+var Accordion = Class.create(CanBeDisabled, {
+  initialize: function($super, id, options){
     this.id = id;
     this.root = $(id);
     if (!this.root) return false;
@@ -64,7 +59,10 @@ var Accordion = Class.create({
       effectDuration: .3,
       disabled: false
     }, options || {});
-    if (this.options.disabled) this.disable();
+    
+    console.log(this.options.disabled);
+    $super(this.id, this.root, this.options.disabled);
+    
     this.accordionEffectOptions = $H({
       duration: this.options.effectDuration,
       queue: { position: 'end', limit: 1, scope: id }
@@ -78,7 +76,6 @@ var Accordion = Class.create({
     this.setupAccordionSections();
     this.fireEvent('initialized');
   },
-  
   setupAccordionSections: function(){
     this.sections = [];
     for (var i=0; i < this.elements.sections.length; i++) {
@@ -87,7 +84,6 @@ var Accordion = Class.create({
     
     this.root.observe('click', this.rootObserver.bind(this));
   },
-  
   rootObserver: function(e){
     var el = e.element();
     if (el.up('.' + this.options.classNames.title)) el = el.up('.' + this.options.classNames.title);
@@ -122,7 +118,6 @@ var Accordion = Class.create({
       } 
     }
   },
-  
   showAnotherSection: function(comingSection, goingSection){
     if (comingSection.disabled || goingSection.disabled) return;
     new Effect.Parallel([
@@ -136,7 +131,6 @@ var Accordion = Class.create({
       }
     }).toObject());
   },
-  
   hideSection: function(goingSection){
     if (goingSection.disabled) return;
     goingSection.elements.toggle.blindUp(
@@ -145,7 +139,6 @@ var Accordion = Class.create({
       }).toObject()
     );
   },
-  
   showSection: function(comingSection){
     if (comingSection.disabled) return;
     comingSection.elements.toggle.blindDown(
@@ -154,33 +147,13 @@ var Accordion = Class.create({
       }).toObject()
     );
   },
-  
-  fireEvent: function(state){
-    document.fire(this.id + ':' + state, { accordion: this });
-  },
-  
-  disable: function(){
-    this.disabled = true;
-    this.root.addClassName('disabled');
-    this.fireEvent('disabled');
-  },
-  
-  enable: function(){
-    this.disabled = false;
-    this.root.removeClassName('disabled');
-    this.fireEvent('enabled');
-  },
-  
-  toggleDisabled: function(){
-    if (this.disabled) this.enable();
-    else this.disable();
+  fireEvent: function($super, state){
+    $super(state, { accordion: this });
   }
-  
 });
 
-var AccordionSection = Class.create({
-  
-  initialize: function(i, accordion){
+var AccordionSection = Class.create(CanBeDisabled, {
+  initialize: function($super, i, accordion){
     this.index = i;
     this.accordion = accordion;
     this.classNames = accordion.options.classNames;
@@ -189,7 +162,6 @@ var AccordionSection = Class.create({
       title:   accordion.elements.titles[i],
       toggle:  accordion.elements.toggles[i]
     };
-    this.disabled = false;
     this.elements.toggle.setStyle({ height: this.elements.toggle.getHeight() + 'px' }).hide();
     this.visible = false;
   },
@@ -207,27 +179,7 @@ var AccordionSection = Class.create({
     this.accordion.activeSection = this;
     this.fireEvent('shown');
   },
-  
-  fireEvent: function(state){
-    document.fire(this.accordion.id + 'Section:' + state, { accordion: this.accordion, section: this });
-  },
-  
-  disable: function(){
-    this.disabled = true;
-    this.elements.section.addClassName('disabled');
-    this.fireEvent('disabled');
-  },
-  
-  enable: function(){
-    this.disabled = false;
-    this.elements.section.removeClassName('disabled');
-    this.fireEvent('enabled');
-  },
-  
-  toggleDisabled: function(){
-    if (this.disabled) this.enable();
-    else this.disable();
+  fireEvent: function($super, state){
+    $super('Section:' + state, { accordion: this.accordion, section: this });
   }
-  
 });
-*/
