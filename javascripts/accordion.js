@@ -25,7 +25,7 @@ var Accordion = Class.create({
       effectDuration: .3,
       disabled: false
     }, options || {});
-    this.disabled = this.options.disabled;
+    if (this.options.disabled) this.disable();
     this.accordionEffectOptions = $H({
       duration: this.options.effectDuration,
       queue: { position: 'end', limit: 1, scope: id }
@@ -118,6 +118,21 @@ var Accordion = Class.create({
   
   fireEvent: function(state){
     document.fire(this.id + ':' + state, { accordion: this });
+  },
+  
+  disable: function(){
+    this.disabled = true;
+    this.root.addClassName('disabled');
+  },
+  
+  enable: function(){
+    this.disabled = false;
+    this.root.removeClassName('disabled');
+  },
+  
+  toggleDisabled: function(){
+    if (this.disabled) this.enable();
+    else this.disable();
   }
   
 });
@@ -154,6 +169,21 @@ var AccordionSection = Class.create({
   
   fireEvent: function(state){
     document.fire(this.accordion.id + 'Section:' + state, { accordion: this.accordion, section: this });
+  },
+  
+  disable: function(){
+    this.disabled = true;
+    this.elements.section.addClassName('disabled');
+  },
+  
+  enable: function(){
+    this.disabled = false;
+    this.elements.section.removeClassName('disabled');
+  },
+  
+  toggleDisabled: function(){
+    if (this.disabled) this.enable();
+    else this.disable();
   }
   
 });

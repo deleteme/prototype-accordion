@@ -22,19 +22,18 @@
         mutuallyExclusive: false
       });
       
-      accordionDisableAll = new Accordion('accordion-disable-all');
+      accordionDisableAll = new Accordion('accordion-disable-all', {disabled: true});
       $('toggle-disabled').observe('click', function(){
-        accordionDisableAll.disabled = !accordionDisableAll.disabled;
+        accordionDisableAll.toggleDisabled();
       });
       
       accordionDisableSection = new Accordion('accordion-disable-section');
       
       (function(){
-        function toggleSection(i, e){
-          accordionDisableSection.sections[i].disabled = !accordionDisableSection.sections[i].disabled;
-        }
         $$('button.toggle-section-disabled').each(function(button, i){
-          button.observe('click', toggleSection.curry(i));
+          button.observe('click', function(){
+            accordionDisableSection.sections[i].toggleDisabled();
+          });
         });
       })()
       

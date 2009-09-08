@@ -43,3 +43,7 @@ ul {
     background: #ccc;
   }
   
+  .disabled, .disabled * {
+    border-color: red !important;
+    color: red !important;
+  }
