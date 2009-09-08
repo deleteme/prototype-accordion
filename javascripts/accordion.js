@@ -12,6 +12,45 @@ Example Markup structure:
   </ul>
 
 */
+var CanFireEvents = Class.create({
+  initialize: function(name){
+    this.name = name;
+  },
+  
+  fireEvent: function (state, memo) {
+    console.log(this.name + ':' + state, memo);
+    document.fire(this.name + ':' + state, memo);
+  }
+});
+
+var CanBeDisabled = Class.create(CanFireEvents, {
+  initialize: function ($super, element, disabled) {
+    this.disabled = disabled || false;
+    this.elementToBeDisabled = element;
+    $super(this.elementToBeDisabled.identify());
+    if (this.disabled) this.disable();
+  },
+  
+  disable: function () {
+    this.disabled = true;
+    this.elementToBeDisabled.addClassName('disabled');
+    this.fireEvent('disabled', { el: this.elementToBeDisabled });
+  },
+  
+  enable: function() {
+    this.disabled = false;
+    this.elementToBeDisabled.removeClassName('disabled');
+    this.fireEvent('enabled', { el: this.elementToBeDisabled });
+  },
+  
+  toggleDisabled: function(){
+    if (this.disabled) this.enable();
+    else this.disable();
+  }
+});
+
+/*
+
 var Accordion = Class.create({
   
   initialize: function(id, options){
@@ -191,3 +230,4 @@ var AccordionSection = Class.create({
   }
   
 });
+*/

@@ -17,26 +17,28 @@
     document.observe('dom:loaded', function(){
       
       // simple
-      accordion = new Accordion('accordion');
+      // accordion = new Accordion('accordion');
       
       // testing mutually exclusive option
-      accordionNotMutuallyExclusive = new Accordion('accordion-not-mutually-exclusive', {
-        mutuallyExclusive: false
-      });
+      // accordionNotMutuallyExclusive = new Accordion('accordion-not-mutually-exclusive', {
+      //         mutuallyExclusive: false
+      //       });
       
       // testing ability to disable an entire accordion
-      accordionDisableAll = new Accordion('accordion-disable-all', { disabled: true });
-      $('toggle-disabled').observe('click', function(){
-        accordionDisableAll.toggleDisabled();
-      });
+      // accordionDisableAll = new Accordion('accordion-disable-all', { disabled: true });
+      // $('toggle-disabled').observe('click', function(){
+      //   accordionDisableAll.toggleDisabled();
+      // });
       
       // testing ability to disable individual sections
-      accordionDisableSection = new Accordion('accordion-disable-section');
-      $$('button.toggle-section-disabled').each(function(button, i){
-        button.observe('click', function(){
-          accordionDisableSection.sections[i].toggleDisabled();
-        });
-      });
+      // accordionDisableSection = new Accordion('accordion-disable-section');
+      // $$('button.toggle-section-disabled').each(function(button, i){
+      //   button.observe('click', function(){
+      //     accordionDisableSection.sections[i].toggleDisabled();
+      //   });
+      // });
+      
+      x = new CanBeDisabled($$('h1')[0], true);
       
     });
   </script>
