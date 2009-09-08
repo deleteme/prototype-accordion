@@ -16,26 +16,27 @@
   <script type="text/javascript">
     document.observe('dom:loaded', function(){
       
+      // simple
       accordion = new Accordion('accordion');
       
+      // testing mutually exclusive option
       accordionNotMutuallyExclusive = new Accordion('accordion-not-mutually-exclusive', {
         mutuallyExclusive: false
       });
       
-      accordionDisableAll = new Accordion('accordion-disable-all', {disabled: true});
+      // testing ability to disable an entire accordion
+      accordionDisableAll = new Accordion('accordion-disable-all', { disabled: true });
       $('toggle-disabled').observe('click', function(){
         accordionDisableAll.toggleDisabled();
       });
       
+      // testing ability to disable individual sections
       accordionDisableSection = new Accordion('accordion-disable-section');
-      
-      (function(){
-        $$('button.toggle-section-disabled').each(function(button, i){
-          button.observe('click', function(){
-            accordionDisableSection.sections[i].toggleDisabled();
-          });
+      $$('button.toggle-section-disabled').each(function(button, i){
+        button.observe('click', function(){
+          accordionDisableSection.sections[i].toggleDisabled();
         });
-      })()
+      });
       
     });
   </script>
