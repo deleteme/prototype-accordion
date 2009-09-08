@@ -123,11 +123,13 @@ var Accordion = Class.create({
   disable: function(){
     this.disabled = true;
     this.root.addClassName('disabled');
+    this.fireEvent('disabled');
   },
   
   enable: function(){
     this.disabled = false;
     this.root.removeClassName('disabled');
+    this.fireEvent('enabled');
   },
   
   toggleDisabled: function(){
@@ -174,11 +176,13 @@ var AccordionSection = Class.create({
   disable: function(){
     this.disabled = true;
     this.elements.section.addClassName('disabled');
+    this.fireEvent('disabled');
   },
   
   enable: function(){
     this.disabled = false;
     this.elements.section.removeClassName('disabled');
+    this.fireEvent('enabled');
   },
   
   toggleDisabled: function(){
