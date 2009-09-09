@@ -14,7 +14,6 @@ Example Markup structure:
 */
 var CanBeDisabledAndFireEvents = Class.create({
   initialize: function (name, element, memo, disabled) {
-    console.log(arguments);
     this.disabled = disabled || false;
     this.elementToBeDisabled = element;
     this.name = name;
@@ -35,7 +34,7 @@ var CanBeDisabledAndFireEvents = Class.create({
     else this.disable();
   },
   fireEvent: function (state, memo) {
-    console.log(this.name + ':' + state, memo);
+    //console.log(this.name + ':' + state, memo);
     document.fire(this.name + ':' + state, memo);
   }
 });
