@@ -12,21 +12,12 @@ Example Markup structure:
   </ul>
 
 */
-var CanFireEvents = Class.create({
-  initialize: function(name){
-    this.name = name;
-  },
-  fireEvent: function (state, memo) {
-    //console.log(this.name + ':' + state, memo);
-    document.fire(this.name + ':' + state, memo);
-  }
-});
-
-var CanBeDisabled = Class.create(CanFireEvents, {
-  initialize: function ($super, name, element, memo, disabled) {
+var CanBeDisabledAndFireEvents = Class.create({
+  initialize: function (name, element, memo, disabled) {
+    console.log(arguments);
     this.disabled = disabled || false;
     this.elementToBeDisabled = element;
-    $super(name, memo);
+    this.name = name;
     if (this.disabled) this.disable();
   },
   disable: function () {
@@ -42,12 +33,16 @@ var CanBeDisabled = Class.create(CanFireEvents, {
   toggleDisabled: function(){
     if (this.disabled) this.enable();
     else this.disable();
+  },
+  fireEvent: function (state, memo) {
+    console.log(this.name + ':' + state, memo);
+    document.fire(this.name + ':' + state, memo);
   }
 });
 
 
 
-var Accordion = Class.create(CanBeDisabled, {
+var Accordion = Class.create(CanBeDisabledAndFireEvents, {
   initialize: function($super, id, options){
     this.id = id;
     this.root = $(id);
@@ -60,7 +55,7 @@ var Accordion = Class.create(CanBeDisabled, {
       disabled: false
     }, options || {});
     
-    $super(this.id, this.root, this.options.disabled);
+    $super(id, this.root, this.options.disabled);
     
     this.accordionEffectOptions = $H({
       duration: this.options.effectDuration,
@@ -84,7 +79,7 @@ var Accordion = Class.create(CanBeDisabled, {
     this.root.observe('click', this.rootObserver.bind(this));
   },
   rootObserver: function(e){
-    var el = e.element();
+    var el = e.findElement();
     if (el.up('.' + this.options.classNames.title)) el = el.up('.' + this.options.classNames.title);
     
     if (el.match('.' + this.options.classNames.title)) {
@@ -151,7 +146,7 @@ var Accordion = Class.create(CanBeDisabled, {
   }
 });
 
-var AccordionSection = Class.create(CanBeDisabled, {
+var AccordionSection = Class.create(CanBeDisabledAndFireEvents, {
   initialize: function($super, i, accordion){
     this.index = i;
     this.accordion = accordion;
