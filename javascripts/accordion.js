@@ -150,7 +150,6 @@ var AccordionSection = Class.create(CanBeDisabledAndFireEvents, {
   initialize: function($super, i, accordion){
     this.index = i;
     this.accordion = accordion;
-    this.classNames = accordion.options.classNames;
     this.elements = {
       section: accordion.elements.sections[i],
       title:   accordion.elements.titles[i],
@@ -165,12 +164,12 @@ var AccordionSection = Class.create(CanBeDisabledAndFireEvents, {
     }
   },
   setHidden: function(){
-    this.elements.section.removeClassName(this.classNames.expanded);
+    this.elements.section.removeClassName(this.accordion.options.classNames.expanded);
     this.visible = false;
     this.fireEvent('hidden');
   },
   setVisible: function(){
-    this.elements.section.addClassName(this.classNames.expanded);
+    this.elements.section.addClassName(this.accordion.options.classNames.expanded);
     this.visible = true;
     this.accordion.activeSection = this;
     this.fireEvent('shown');
