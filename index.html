@@ -17,7 +17,7 @@
     document.observe('dom:loaded', function(){
       
       // simple
-      accordion = new Accordion('accordion');
+      accordion = new Accordion('accordion', { startHidden: false });
       
       // testing mutually exclusive option
       accordionNotMutuallyExclusive = new Accordion('accordion-not-mutually-exclusive', {

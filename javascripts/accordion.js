@@ -51,7 +51,8 @@ var Accordion = Class.create(CanBeDisabledAndFireEvents, {
       classNames: { section: 'section', title: 'title', toggle: 'toggle', expanded: 'expanded' },
       mutuallyExclusive: true,
       effectDuration: .3,
-      disabled: false
+      disabled: false,
+      startHidden: true
     }, options || {});
     
     $super(id, this.root, this.options.disabled);
@@ -155,13 +156,16 @@ var AccordionSection = Class.create(CanBeDisabledAndFireEvents, {
       title:   accordion.elements.titles[i],
       toggle:  accordion.elements.toggles[i]
     };
+    this.visible = true;
     $super(this.accordion.id + 'Section', this.elements.section);
-    this.elements.toggle.setStyle({ height: this.elements.toggle.getHeight() + 'px' }).hide();
-    this.visible = false;
+    this.elements.toggle.setStyle({ height: this.elements.toggle.getHeight() + 'px' });
+    if (this.accordion.options.startHidden){
+      this.elements.toggle.hide();
+      this.setHidden();
+    }
   },
   setHidden: function(){
-    if (this.elements.section.hasClassName(this.classNames.expanded))
-      this.elements.section.removeClassName(this.classNames.expanded);
+    this.elements.section.removeClassName(this.classNames.expanded);
     this.visible = false;
     this.fireEvent('hidden');
   },
