@@ -13,7 +13,7 @@ Example Markup structure:
 
 */
 var CanBeDisabledAndFireEvents = Class.create({
-  initialize: function (name, element, memo, disabled) {
+  initialize: function (name, element, disabled) {
     this.disabled = disabled || false;
     this.elementToBeDisabled = element;
     this.name = name;
@@ -34,7 +34,7 @@ var CanBeDisabledAndFireEvents = Class.create({
     else this.disable();
   },
   fireEvent: function (state, memo) {
-    //console.log(this.name + ':' + state, memo);
+    // console.log(this.name + ':' + state, memo);
     document.fire(this.name + ':' + state, memo);
   }
 });
@@ -159,14 +159,12 @@ var AccordionSection = Class.create(CanBeDisabledAndFireEvents, {
     this.elements.toggle.setStyle({ height: this.elements.toggle.getHeight() + 'px' }).hide();
     this.visible = false;
   },
-  
   setHidden: function(){
     if (this.elements.section.hasClassName(this.classNames.expanded))
       this.elements.section.removeClassName(this.classNames.expanded);
     this.visible = false;
     this.fireEvent('hidden');
   },
-  
   setVisible: function(){
     this.elements.section.addClassName(this.classNames.expanded);
     this.visible = true;
