@@ -17,7 +17,7 @@ var CanFireEvents = Class.create({
     this.name = name;
   },
   fireEvent: function (state, memo) {
-    console.log(this.name + ':' + state, memo);
+    //console.log(this.name + ':' + state, memo);
     document.fire(this.name + ':' + state, memo);
   }
 });
@@ -60,7 +60,6 @@ var Accordion = Class.create(CanBeDisabled, {
       disabled: false
     }, options || {});
     
-    console.log(this.options.disabled);
     $super(this.id, this.root, this.options.disabled);
     
     this.accordionEffectOptions = $H({
@@ -162,6 +161,7 @@ var AccordionSection = Class.create(CanBeDisabled, {
       title:   accordion.elements.titles[i],
       toggle:  accordion.elements.toggles[i]
     };
+    $super(this.accordion.id + 'Section', this.elements.section);
     this.elements.toggle.setStyle({ height: this.elements.toggle.getHeight() + 'px' }).hide();
     this.visible = false;
   },
@@ -180,6 +180,6 @@ var AccordionSection = Class.create(CanBeDisabled, {
     this.fireEvent('shown');
   },
   fireEvent: function($super, state){
-    $super('Section:' + state, { accordion: this.accordion, section: this });
+    $super(state, { accordion: this.accordion, section: this });
   }
 });
