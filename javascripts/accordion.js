@@ -157,7 +157,6 @@ var AccordionSection = Class.create(CanBeDisabledAndFireEvents, {
     };
     this.visible = true;
     $super(this.accordion.id + 'Section', this.elements.section);
-    this.elements.toggle.setStyle({ height: this.elements.toggle.getHeight() + 'px' });
     if (this.accordion.options.startHidden){
       this.elements.toggle.hide();
       this.setHidden();
